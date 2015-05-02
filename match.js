@@ -90,7 +90,7 @@ function(val, pat, addValToFuncArgs) {
         return this.checkPattern(val, pat, true);
       else 
         return false;
-      }
+    }
     else if (pat instanceof Array && pat.length > 0 && val.length > 0) 
       return this.checkPattern(val[0], pat[0], addValToFuncArgs) && 
              this.checkPattern(val.slice(1), pat.slice(1), addValToFuncArgs);
