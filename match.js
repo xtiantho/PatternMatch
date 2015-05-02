@@ -1,9 +1,9 @@
 
 function match(value) { 	
-	var args = Array.prototype.slice.call(arguments);
-	args = args.slice(1);
-	var pm = new Pattern(value, args);
-	return pm.patternMatch();
+  var args = Array.prototype.slice.call(arguments);
+  args = args.slice(1);
+  var pm = new Pattern(value, args);
+  return pm.patternMatch();
 }
 
 function When(f) { this.func = f; }
@@ -13,28 +13,28 @@ var many = function(p) { return new Many(p); }
 var when = function(f) { return new When(f); }
 
 function Pattern(value, args) {
-	//this.stack[0] essentially holds the argument array that will be passed into the matched function
-	this.value = value; this.patterns = []; this.functions = []; this.stack = [[]]; this.index = -1;
-	//split the args into their respective pattern and function arrays
-	for (var i = 0; i < args.length; i++) {
-		if (i === 0 || i % 2 === 0)
-			this.patterns.push(args[i]);
-		else
-			this.functions.push(args[i]);
-	}
+  //this.stack[0] essentially holds the argument array that will be passed into the matched function
+  this.value = value; this.patterns = []; this.functions = []; this.stack = [[]]; this.index = -1;
+  //split the args into their respective pattern and function arrays
+  for (var i = 0; i < args.length; i++) {
+    if (i === 0 || i % 2 === 0)
+      this.patterns.push(args[i]);
+    else
+      this.functions.push(args[i]);
+  }
 }
 
 Pattern.prototype.evalFunc = 
 function() {
-	var f = this.functions[this.index];
-	return f.apply(undefined, this.stack[0]);
+  var f = this.functions[this.index];
+  return f.apply(undefined, this.stack[0]);
 }
 
 //main pattern matching function
 Pattern.prototype.patternMatch = 
 function() {
-	for (var i = 0; i < this.patterns.length; i++) {
-		if (this.checkPattern(this.value, this.patterns[i], true)) {
+  for (var i = 0; i < this.patterns.length; i++) {
+	 if (this.checkPattern(this.value, this.patterns[i], true)) {
 			this.index = i;
 			return this.evalFunc();
 		} 
